@@ -53,21 +53,20 @@ ShopSenseAI/
 ├── app.py                     # Main Streamlit Orchestrator & UI Ports
 ├── requirements.txt           # Required Libraries (Torch, FAISS, Streamlit)
 ├── README.md                  # Detailed Documentation (This file)
-├── initialize_dataset.py      # Programmatic 100-Product Catalog Builder
 │
 ├── data/
-│   ├── products.csv           # Product Metadata Database
-│   └── images/                # Local cache directory for product images (downloads + procedurals)
+│   ├── products.csv           # Product Metadata Database (253 unique items)
+│   └── images/                # Local database of clean product packshot images
 │
 ├── embeddings/
-│   ├── image_embeddings.npy   # Stored 512-dimension NumPy CLIP vectors cache
+│   ├── image_embeddings.npy   # Precompiled L2-normalized CLIP embeddings cache
 │   └── faiss_index.bin        # Compiled FAISS Binary Index
 │
 ├── models/
-│   └── clip_model.py          # Cached CLIP model wrapper & normalized embedding generators
+│   └── clip_model.py          # CLIP model wrapper & embedding generators
 │
 ├── utils/
-│   ├── faiss_utils.py         # FAISS Index Manager (normalizations, saving, search lookups)
+│   ├── faiss_utils.py         # FAISS Index Manager (saving, search lookups)
 │   ├── image_loader.py        # Image downloader & high-end procedural fallback generator
 │   └── search_engine.py       # Query processing, Price/Merchant filtering, Recommendations
 │
@@ -89,18 +88,12 @@ Install all required libraries (PyTorch, Transformers, FAISS, and Streamlit):
 pip install -r requirements.txt
 ```
 
-### 3. Initialize & Populate the Catalog
-Run the programmatic database initialization script. This generates a structured 100-product metadata catalog, fetches high-resolution visual sources from Unsplash, and creates tactical grid backups for offline stability:
-```bash
-python initialize_dataset.py
-```
-
-### 4. Launch the Engine
+### 3. Launch the Engine
 Boot up the Streamlit server:
 ```bash
 streamlit run app.py
 ```
-*Note: On your very first run, `app.py` will notice that the FAISS index binaries are unbuilt. It will automatically load the model, convert all catalog images to 512-dim vectors, compile your vector database, and save `embeddings/faiss_index.bin` in real time with an elegant progress HUD.*
+*Note: The application comes fully pre-seeded out of the box with the complete 253-product dataset, CDN-resolved packshot images, and precompiled FAISS vector database embeddings (`embeddings/faiss_index.bin`). It is ready to run instantly without any heavy initial indexing!*
 
 ---
 
