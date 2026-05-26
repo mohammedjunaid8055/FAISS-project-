@@ -1,0 +1,474 @@
+/* Google Fonts: Luxury Serif & High-Precision Sans-Serif */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* GLOBAL CSS ROOT VARIABLES */
+:root {
+    --bg-primary: #070809;       /* Obsidian Velvet Black */
+    --bg-secondary: #0c0e10;     /* Deep Panel Charcoal */
+    --bg-card: #111417;          /* Polished Obsidian Panel */
+    --border-color: rgba(16, 185, 129, 0.08); /* Subtle Emerald Tint */
+    --border-active: #10b981;     /* Vivid Emerald green highlight */
+    --accent-rgb: 16, 185, 129;
+    --text-primary: #f3f4f6;      /* Crisp Ice Linen White */
+    --text-secondary: #9ca3af;    /* Muted Steel Slate */
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'Inter', sans-serif; /* Eliminated monospace fonts */
+}
+
+/* WHITE-LABEL STREAMLIT DEFAULTS OVERRIDE */
+.reportview-container, .main {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+}
+
+/* Hide Streamlit default components to give a dedicated product feel */
+#MainMenu { visibility: hidden !important; }
+footer { visibility: hidden !important; }
+header { visibility: hidden !important; }
+.stDeployButton { display: none !important; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: #111417;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-active);
+}
+
+/* --- LUXURY GALLERY HEADER --- */
+.tech-header {
+    width: 100%;
+    padding: 24px 28px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-logo {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.6rem;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tech-logo span {
+    color: #dfc384; /* Gold accent */
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    padding: 3px 10px;
+    border: 1px solid rgba(223, 195, 132, 0.3);
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+
+.tech-status {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 24px;
+    text-transform: uppercase;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--border-active);
+    border-radius: 50%;
+    animation: pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+/* --- DYNAMIC GRID LAYOUT --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+    padding: 12px 0;
+}
+
+/* --- ELEGANT EDITORIAL PRODUCT CARD --- */
+.product-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-active);
+    box-shadow: 0 25px 50px rgba(16, 185, 129, 0.15); /* Soft Emerald glow */
+}
+
+/* Card Image Section */
+.card-img-container {
+    width: 100%;
+    height: 220px;
+    background-color: var(--bg-secondary);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .card-img {
+    transform: scale(1.03);
+}
+
+/* HUD Overlay on top of Image */
+.card-hud {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.badge-score {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--bg-primary);
+    background-color: #dfc384; /* Soft Gold */
+    padding: 4px 10px;
+    border-radius: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.badge-source {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: rgba(7, 8, 9, 0.85);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 3px;
+}
+
+/* Card Meta Details */
+.card-category {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--border-active);
+    margin-top: 18px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.card-title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin: 0 0 10px 0;
+    height: 52px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.card-description {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    height: 58px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Elegant Dotted Line Spacers for Metadata HUD */
+.card-stats {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background-color: transparent;
+    border-top: 1px solid rgba(16, 185, 129, 0.08);
+    padding-top: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-dot-leader {
+    flex-grow: 1;
+    border-bottom: 1px dotted rgba(16, 185, 129, 0.15);
+    margin: 0 10px;
+    height: 10px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    border-top: 1px dashed rgba(16, 185, 129, 0.12);
+    padding-top: 16px;
+}
+
+.card-price {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.card-price::before {
+    content: "\20B9";
+    color: #dfc384; /* Soft Gold for Rupee mark */
+    margin-right: 4px;
+}
+
+/* Card External Link Button */
+.btn-redirect {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--bg-primary) !important;
+    background-color: var(--text-primary);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-redirect:hover {
+    background-color: var(--border-active);
+    color: var(--text-primary) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* --- SYSTEM READOUT TAGS (ELEGANT ROUNDED PILLS) --- */
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.bracket-tag {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 6px 16px;
+    border-radius: 30px; /* Pillow oval shape */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bracket-tag:hover {
+    color: var(--border-active);
+    border-color: var(--border-active);
+    background-color: rgba(16, 185, 129, 0.05);
+}
+
+/* --- SIDEBAR SEARCH HISTORY --- */
+.history-item {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 10px 14px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--text-secondary);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-item:hover {
+    border-color: var(--border-active);
+    border-left-color: var(--border-active);
+    color: var(--border-active);
+}
+
+.history-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 82%;
+}
+
+.history-icon {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+/* --- ELEGANT SWEEPING SLATE SHIMMER LOADER --- */
+.shimmer-loader {
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-line {
+    width: 30%;
+    height: 100%;
+    background-color: var(--border-active);
+    position: absolute;
+    top: 0;
+    left: -30%;
+    animation: sweep 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes sweep {
+    0% { left: -30%; }
+    100% { left: 100%; }
+}
+
+/* --- RECOMMENDATION DRAWER (DRAWER CONTAINER) --- */
+.similar-drawer {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-top: 2px solid var(--border-active);
+    border-radius: 8px;
+    padding: 28px;
+    margin-top: 48px;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.drawer-title {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* CUSTOM STREAMLIT COMPONENT ADJUSTMENTS */
+.stTextInput>div>div>input {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 6px !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.92rem !important;
+    padding: 12px 16px !important;
+    box-shadow: none !important;
+    transition: all 0.25s ease !important;
+}
+
+.stTextInput>div>div>input:focus {
+    border-color: var(--border-active) !important;
+}
+
+.stSlider>div>div>div>div {
+    background-color: var(--border-active) !important;
+}
+
+.stButton>button {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 6px !important;
+    color: var(--text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    padding: 8px 20px !important;
+    box-shadow: none !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+
+.stButton>button:hover {
+    border-color: var(--border-active) !important;
+    color: var(--border-active) !important;
+    background-color: rgba(16, 185, 129, 0.03) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08) !important;
+}
+
+.stButton>button:active {
+    background-color: rgba(16, 185, 129, 0.1) !important;
+}
