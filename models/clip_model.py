@@ -25,6 +25,15 @@ class CLIPSearchModel:
         try:
             model = CLIPModel.from_pretrained(_self.model_name)
             processor = CLIPProcessor.from_pretrained(_self.model_name)
+            
+            if _self.device == "cpu":
+                print("[ShopSense AI] Applying dynamic quantization to CLIP model on CPU to save memory...")
+                model = torch.quantization.quantize_dynamic(
+                    model, {torch.nn.Linear}, dtype=torch.qint8
+                )
+                import gc
+                gc.collect()
+                
             model.to(_self.device)
             # Set model to evaluation mode
             model.eval()
